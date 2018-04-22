@@ -12,6 +12,7 @@ namespace app\controllers;
 use app\lib\wxsdk\ValidateHelper;
 use app\lib\wxsdk\WxMsgTransfer\WxTransfer;
 use app\lib\wxsdk\WxResponseHelper;
+use app\lib\wxsdk\WxSdk;
 use yii\web\Controller;
 use Yii;
 
@@ -41,7 +42,14 @@ class WxcallerController extends Controller
         }
         switch ($wx_up_msg->MsgType) {
             case WxTransfer::MSG_TYPE_TEXT:
-                echo WxResponseHelper::genResponseTextMsg($wx_up_msg->FromUserName, 'echo : ' . $wx_up_msg->Content);
+                if ('抽签' == $wx_up_msg->Content) {
+                    $article = Yii::$app->urlManager->createAbsoluteUrl(['site/chouqian']);
+                    recordObj($article);
+                    $resp_text = WxSdk::getInstance()->genOauthUrl($article, WxSdk::SCOPE_BASE);
+                    echo WxResponseHelper::genResponseTextMsg($wx_up_msg->FromUserName, sprintf('<a href="%s">签画</a>%s', $resp_text, $article));
+                } else {
+                    echo WxResponseHelper::genResponseTextMsg($wx_up_msg->FromUserName, 'echo : ' . $wx_up_msg->Content);
+                }
                 break;
             default:
                 return '';
