@@ -130,14 +130,5 @@ class SiteController extends Controller
 
     public function actionChouqian() {
         echo '<pre>'.print_r($_REQUEST, true).'</pre>';
-        $entry_msg = WxSdk::getInstance()->getOauthAccesstoken($_GET['code']);
-        if (is_array($entry_msg) && isset($entry_msg['openid'])) {
-            $user_info = DynamicData::getWxUserInformation($entry_msg['openid']);
-            echo '<pre>'.print_r($user_info, true).'</pre>';
-        } else {
-            echo '----------------------------------<br />';
-        }
-
-        echo '<pre>'.print_r($entry_msg, true).'</pre>';
     }
 }

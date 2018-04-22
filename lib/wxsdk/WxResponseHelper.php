@@ -17,9 +17,24 @@ class WxResponseHelper
      * @param $content
      * @return string
      */
-    public static function genResponseTextMsg($touser, $content)
+    public static function genResponseTextMsg($touser, $fromuser, $content)
     {
         $res_info = '<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%d</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[%s]]></Content></xml>';
-        return sprintf($res_info, $touser, WxConfigKey::getInstance()->getCachedConfig(WxConfigKey::WEIXIN_CODE), time(), $content);
+        return sprintf($res_info, $touser, $fromuser, time(), $content);
+    }
+
+    /**
+     * 生成被动响应的图文消息
+     * @param $touser
+     * @param array $picitems
+     * @return string
+     */
+    public static function genResponsePicMsg($touser, $fromuser, array $picitems) {
+        $items_content = '';
+        foreach ($picitems as $pic_item) {
+            $items_content .= $pic_item->toString();
+        }
+        $raw_msg_format = '<xml><ToUserName><![CDATA[%s]]></ToUserName><FromUserName><![CDATA[%s]]></FromUserName><CreateTime>%d</CreateTime><MsgType><![CDATA[news]]></MsgType><ArticleCount>%d</ArticleCount><Articles>%s</Articles></xml>';
+        return sprintf($raw_msg_format, $touser, $fromuser, time(), count($picitems), $items_content);
     }
 }
