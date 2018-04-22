@@ -6,6 +6,9 @@
  * Time: 13:39
  */
 
+require(dirname(__DIR__) . '/vendor/requests/Requests.php');
+Requests::register_autoloader();
+
 function debugObj($obj, $terminate=true)
 {
     echo '<pre>'.print_r($obj, true).'</pre>';
