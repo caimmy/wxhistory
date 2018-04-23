@@ -11,8 +11,10 @@ namespace app\controllers;
 
 use app\lib\wxsdk\ValidateHelper;
 use app\lib\wxsdk\WxMsgTransfer\WxTransfer;
+use app\lib\wxsdk\WxPicmsgItem;
 use app\lib\wxsdk\WxResponseHelper;
 use app\lib\wxsdk\WxSdk;
+use app\models\AppWxDrawqian;
 use yii\web\Controller;
 use Yii;
 
@@ -43,12 +45,14 @@ class WxcallerController extends Controller
         switch ($wx_up_msg->MsgType) {
             case WxTransfer::MSG_TYPE_TEXT:
                 if ('抽签' == $wx_up_msg->Content) {
-                    $article = Yii::$app->urlManager->createAbsoluteUrl(['site/chouqian']);
-                    recordObj($article);
-                    $resp_text = WxSdk::getInstance()->genOauthUrl($article, WxSdk::SCOPE_BASE);
-                    echo WxResponseHelper::genResponseTextMsg($wx_up_msg->FromUserName, sprintf('<a href="%s">签画</a>%s', $resp_text, $article));
+                    $cur_qian = $this->DrawOneQian($wx_up_msg->FromUserName);
+                    if (is_object($cur_qian)) {
+                        echo WxResponseHelper::genResponsePicMsg($wx_up_msg->FromUserName, $wx_up_msg->ToUserName, [$cur_qian]);
+                    } else {
+                        echo WxResponseHelper::genResponseTextMsg($wx_up_msg->FromUserName, $wx_up_msg->ToUserName, '需要重新抽取');
+                    }
                 } else {
-                    echo WxResponseHelper::genResponseTextMsg($wx_up_msg->FromUserName, 'echo : ' . $wx_up_msg->Content);
+                    echo WxResponseHelper::genResponseTextMsg($wx_up_msg->FromUserName, $wx_up_msg->ToUserName, 'echo : ' . $wx_up_msg->Content);
                 }
                 break;
             default:
@@ -62,5 +66,22 @@ class WxcallerController extends Controller
      * @param $packet
      */
     public function onTextMessage(WxTransfer $packet) {
+    }
+
+    /**
+     * 抽取一支签
+     * @param $fromuser
+     */
+    private function DrawOneQian($fromuser) {
+        $qian_data = AppWxDrawqian::DrawRandomQian($fromuser);
+        if (is_object($qian_data)) {
+            $picmsg_item = new WxPicmsgItem();
+            $picmsg_item->Title = $qian_data->title;
+            $picmsg_item->Description = $qian_data->poem;
+            $picmsg_item->PicUrl = $qian_data->getImageUrl();
+            $picmsg_item->Url = Yii::$app->urlManager->createAbsoluteUrl(['site/chouqian', 'id' => $qian_data->id]);
+            return $picmsg_item;
+        }
+        return false;
     }
 }

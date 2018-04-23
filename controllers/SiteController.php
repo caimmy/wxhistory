@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\lib\wxsdk\datastruct\DynamicData;
 use app\lib\wxsdk\WxSdk;
+use app\models\AppWxGuanyinqian;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -128,16 +129,10 @@ class SiteController extends Controller
         return $this->render('about');
     }
 
-    public function actionChouqian() {
-        echo '<pre>'.print_r($_REQUEST, true).'</pre>';
-        $entry_msg = WxSdk::getInstance()->getOauthAccesstoken($_GET['code']);
-        if (is_array($entry_msg) && isset($entry_msg['openid'])) {
-            $user_info = DynamicData::getWxUserInformation($entry_msg['openid']);
-            echo '<pre>'.print_r($user_info, true).'</pre>';
-        } else {
-            echo '----------------------------------<br />';
-        }
-
-        echo '<pre>'.print_r($entry_msg, true).'</pre>';
+    public function actionChouqian($id) {
+        $this->layout = 'pure_main';
+        return $this->renderPartial('drawqian', [
+            'qian' => AppWxGuanyinqian::findOne($id)
+        ]);
     }
 }
