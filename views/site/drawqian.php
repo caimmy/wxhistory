@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="initial-scale=1.0" />
     <meta name="format-detection" content="telephone=no" />
-    <title>观音灵签</title>
+    <title>偶拾史事.灵签</title>
     <style type="text/css">
         body {
             width: 100%;
@@ -173,7 +173,11 @@
 
         </td></tr>
 </table>
-                                    <div>
+                                    <div style="margin-top: 20px;">
+                                        <span style="font-size: 16px; font-weight: bold; margin-top:20px;">关注公众号，回复“抽签”，每日可抽取一支观音灵签！</span>
+                                        <img src="<?php echo Yii::$app->request->baseUrl; ?>/images/wx_qcord.jpg" />
+                                    </div>
+                                    <div style="margin-top:20px;">
                                         <span class="center" style="text-align: center;font-weight: bold; margin-top: 20px;">@偶拾史事</span>
                                     </div>
 
