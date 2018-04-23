@@ -7,6 +7,7 @@
 
 namespace app\commands;
 
+use app\models\AppWxGuanyinqian;
 use yii\console\Controller;
 use yii\console\ExitCode;
 
@@ -30,5 +31,27 @@ class HelloController extends Controller
         echo $message . "\n";
 
         return ExitCode::OK;
+    }
+
+    public function actionAdjust() {
+        echo "starting...\n";
+
+        $qian_items = AppWxGuanyinqian::find()->all();
+        foreach ($qian_items as $qian) {
+            if ('签语' == mb_substr($qian->qianyu, 0, 2)) {
+                $qian->qianyu = mb_substr($qian->qianyu, 2);
+            }
+            if ('解签' == mb_substr($qian->jieqian, 0, 2)) {
+                $qian->jieqian = mb_substr($qian->jieqian, 2);
+            }
+            if ('仙机' == mb_substr($qian->xianji, 0, 2)) {
+                $qian->xianji = mb_substr($qian->xianji, 2);
+            }
+            if ('故事' == mb_substr($qian->story, 0, 2)) {
+                $qian->story = mb_substr($qian->story, 2);
+            }
+            $qian->save();
+        }
+        echo "completed!\n";
     }
 }
