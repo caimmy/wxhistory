@@ -174,7 +174,7 @@
         </td></tr>
 </table>
                                     <div style="margin-top: 20px;">
-                                        <span style="font-size: 16px; font-weight: bold; margin-top:20px;">关注公众号，回复“抽签”，每日可抽取一支观音灵签！</span><br />
+                                        <span style="font-size: 16px; font-weight: bold; margin-top:20px;">关注公众号，回复<span style="color:red;">抽签</span>，每日可抽取一支观音灵签！</span><br />
                                         <img src="<?php echo Yii::$app->request->baseUrl; ?>/images/wx_qcord.jpg" />
                                     </div>
                                     <div style="margin-top:20px;">
