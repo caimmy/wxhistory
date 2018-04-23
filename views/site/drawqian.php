@@ -96,9 +96,9 @@
 <table width="100%" height="100%" bgcolor="#E4E6E9" cellspacing="0" cellpadding="0" border="0">
     <tr><td width="100%" align="center" valign="top" bgcolor="#E4E6E9" style="background-color:#E4E6E9; min-height: 200px;">
             <table><tr><td class="table-td-wrap" align="center" width="608"><div style="font-family: Arial, sans-serif; line-height: 32px; color: #444444; font-size: 13px;">
-                            专业解签？
+                            欲得解签？
                             <a href="#" style="color: #478fca; text-decoration: none; font-size: 14px; background-color: transparent;">
-                                求问高人 &rarr;
+                                求问神仙 &rarr;
                             </a>
                         </div>
 
