@@ -5,7 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="initial-scale=1.0" />
     <meta name="format-detection" content="telephone=no" />
-    <title>偶拾史事.灵签</title>
+    <title><?php echo $qian->title; ?> - 偶拾史事</title>
     <style type="text/css">
         body {
             width: 100%;
@@ -93,13 +93,13 @@
     </style>
 </head>
 <body style="font-family: Arial, sans-serif; font-size:13px; color: #444444; min-height: 200px;" bgcolor="#E4E6E9" leftmargin="0" topmargin="0" marginheight="0" marginwidth="0">
+<div style='margin:0 auto;display:none;'>
+    <img src="<?php echo Yii::$app->request->getHostInfo() . Yii::$app->request->baseUrl ?>/images/qian.jpg" />
+</div>
 <table width="100%" height="100%" bgcolor="#E4E6E9" cellspacing="0" cellpadding="0" border="0">
     <tr><td width="100%" align="center" valign="top" bgcolor="#E4E6E9" style="background-color:#E4E6E9; min-height: 200px;">
             <table><tr><td class="table-td-wrap" align="center" width="608"><div style="font-family: Arial, sans-serif; line-height: 32px; color: #444444; font-size: 13px;">
-                            欲得解签？
-                            <a href="#" style="color: #478fca; text-decoration: none; font-size: 14px; background-color: transparent;">
-                                求问神仙 &rarr;
-                            </a>
+                            求神问卜 . 不如自己做主
                         </div>
 
                         <table class="table-row" style="table-layout: auto; padding-right: 24px; padding-left: 24px; width: 600px; background-color: #ffffff;" bgcolor="#FFFFFF" width="600" cellspacing="0" cellpadding="0" border="0"><tbody><tr height="55px" style="font-family: Arial, sans-serif; line-height: 19px; color: #444444; font-size: 13px; height: 55px;">
