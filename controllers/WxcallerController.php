@@ -55,6 +55,8 @@ class WxcallerController extends Controller
                     echo WxResponseHelper::genResponseTextMsg($wx_up_msg->FromUserName, $wx_up_msg->ToUserName, 'echo : ' . $wx_up_msg->Content);
                 }
                 break;
+            case WxTransfer::MSG_TYPE_EVENT:
+                braek;
             default:
                 return '';
                 break;
