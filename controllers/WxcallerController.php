@@ -13,7 +13,6 @@ use app\lib\wxsdk\ValidateHelper;
 use app\lib\wxsdk\WxMsgTransfer\WxTransfer;
 use app\lib\wxsdk\WxPicmsgItem;
 use app\lib\wxsdk\WxResponseHelper;
-use app\lib\wxsdk\WxSdk;
 use app\models\AppWxDrawqian;
 use yii\web\Controller;
 use Yii;
@@ -77,8 +76,12 @@ class WxcallerController extends Controller
     private function DrawOneQian($fromuser) {
         $qian_data = AppWxDrawqian::DrawRandomQian($fromuser);
         if (is_object($qian_data)) {
+            $date_seq = intval(date('d'));
+            $month_seq = intval(date('m'));
+            $draw_date_label = sprintf('%s月%s日', Yii::$app->params['tradition_date']['month'][$month_seq - 1],
+                Yii::$app->params['tradition_date']['day'][$date_seq - 1]);
             $picmsg_item = new WxPicmsgItem();
-            $picmsg_item->Title = $qian_data->title;
+            $picmsg_item->Title = $draw_date_label . ' - ' . $qian_data->title;
             $picmsg_item->Description = $qian_data->poem;
             $picmsg_item->PicUrl = $qian_data->getImageUrl();
             $picmsg_item->Url = Yii::$app->urlManager->createAbsoluteUrl(['site/chouqian', 'id' => $qian_data->id]);
